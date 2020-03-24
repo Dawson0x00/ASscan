@@ -14,7 +14,6 @@
 
 **依赖**
 
-- argparse
 - requests
 - urllib3
 - stringcolor
