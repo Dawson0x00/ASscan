@@ -4,7 +4,7 @@
 
 一款偏向于域名的简单资产存活性检测脚本，基于状态码响应判断网站当前访问状态。
 
-<img src="/Users/poco/Desktop/WX20200324-163634@2x.png" alt="Example" style="zoom:50%;" />
+<img src="https://github.com/helGayhub233/ASscan/blob/master/images/WX20200324-163634%402x.png" alt="Example" style="zoom:50%;" />
 
 ## 环境
 
