@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
 from urllib.parse import urlparse
 
 import os
-import json
 import argparse
 import requests
 import urllib3
 import stringcolor
 
 __author__ = 'PoCo'
-__upgrade__ = ''
-__version__ = stringcolor.cs('VER: 1.0.0', '#808000')
+__version__ = stringcolor.cs('VER: 1.0.1', '#808000')
 __url__ = 'https://github.com/helGayhub233/AS-Scan'
-__description__ = 'Assets Survival Scan v1.0.0'
+__description__ = 'Assets Survival Scan v1.0.1'
 __tips__ = '''
 example:
   asscan.py -u domain.com
@@ -23,13 +20,21 @@ example:
   asscan.py -i input.txt -o output.txt
   
 '''
+
 _count = 1  # list counter
 _YES = []  # status 200
 _NO = []  # status other
 
 
-def beta_check():
-    pass
+def http_title(url):
+    if url.startswith('http://') or url.startswith('https://'):
+        target = urlparse(url)
+        target = target.scheme + '://' + target.netloc
+        return target
+    else:
+        target = 'http://' + url
+        return target
+
 
 def print_title():
     print("""\033[1;36m
@@ -40,7 +45,6 @@ def print_title():
  /_/  |_/____/     /____/\___/\__,_/_/ /_/ 
 \033[0m""" + """
 Author: """ + __author__ + """
-Beta: """ + __upgrade__ + """
 Github: """ + __url__ + """\n""")
 
 
@@ -52,7 +56,7 @@ def prase_target(target):
                       'Chrome/67.0.3396.62 Safari/537.36 '
     }
     try:
-        data = requests.get(target, headers=headers, timeout=4, verify=False)
+        data = requests.get(target, headers=headers, timeout=3.5, verify=False)
         value_url, value_status = target, data.status_code
 
         if value_status == 200:
@@ -88,15 +92,6 @@ def prase_target(target):
         row = call_count + stringcolor.cs(get_tab(value_url), '#ff0000') \
               + stringcolor.cs(str(value_status), '#ff0000') + '\t\b' + stringcolor.cs(_status, '#ff0000')
         print(row)
-
-
-'''
-修订内容
-Beta: 1.1.0
-- 加入urllib3, 读取标签头进一步确定网站的可访问性
-- 加入请求IP功能, 请求网站的IP地址判断是否为代理
-- 加入多线程进行URL处理
-'''
 
 
 def print_header_scan():
@@ -153,6 +148,7 @@ def main():
             exit(f'\nFile not found: {wordlist}.txt\n')
         word_list = loadfile_wlist(wordlist)
         word_list = [item.lower() for item in word_list]
+        word_list = [http_title(c_item) for c_item in word_list]
 
         if wfile:
             output = os.path.join(_ROOT, wfile)
@@ -169,24 +165,20 @@ def main():
                         y.write(w_y + '\n')
                     for w_n in _NO:
                         n.write(w_n + '\n')
-                print(f'\nTotal: There are {len(_YES)} Open, {len(_NO)} Close.')
+                print(f'\nTotal: There are {len(_YES)} open, {len(_NO)} exception.')
                 print(f'Please check the file {output}, See FAIL.txt for failure.\n')
         else:
             for item in word_list:
                 prase_target(item)
                 _count += 1
-            print(f'\nTotal: {len(_YES)} domains Open, {len(_NO)} domains Close.\n')
+            print(f'\nTotal: {len(_YES)} domains open, {len(_NO)} domains exception.\n')
 
     elif url is None:
         exit(parser.print_help())
 
     else:
-        if url.startswith('http://') or url.startswith('https://'):
-            target = urlparse(url)
-            target = target.scheme + '://' + target.netloc
-        else:
-            target = 'http://' + url
-        prase_target(target)
+        c_target = http_title(url)
+        prase_target(c_target)
         print()
 
 
