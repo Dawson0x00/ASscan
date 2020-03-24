@@ -2,9 +2,13 @@
 
 [![Python 3.x](https://img.shields.io/badge/python-3.x-g.svg)](https://github.com/helGayhub233/ASscan)
 
-一款偏向于域名的简单资产存活性检测脚本，基于状态码响应判断网站当前访问状态。
+一款偏向于域名的简单资产存活性检测脚本，基于状态码响应并判断网站当前访问状态。
 
 <img src="https://github.com/helGayhub233/ASscan/blob/master/images/WX20200324-163634%402x.png" alt="Example" width="50%" height="50%" />
+
+## 设计思路
+
+200、3xx、4xx、5xx归类为正常访问(即开放WEB服务但不排除其他目录下可能存在其他应用)，异常、超时归类为无法访问。
 
 ## 环境
 
