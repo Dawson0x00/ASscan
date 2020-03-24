@@ -6,7 +6,7 @@
 
 <img src="https://github.com/helGayhub233/ASscan/blob/master/images/WX20200324-163634%402x.png" alt="Example" width="50%" height="50%" />
 
-## 设计思路
+## 思路
 
 200、3xx、4xx、5xx归类为正常访问(即开放了服务但不排除其他目录下可能存在其他应用)；  
 访问异常、超时归类为无法访问；
