@@ -18,7 +18,9 @@
 - urllib3
 - stringcolor
 
-> $ pip install -r requirements.txt
+```
+ $ pip install -r requirements.txt
+```
 
 ## 使用
 
@@ -29,13 +31,14 @@
 - -o 列表导出(.txt)
 
 单个URL检测
-
-> $ asscan.py -u domain.com
+```
+$ asscan.py -u domain.com
+```
 
 多个URL检测
-
-> $asscan.py -i input.txt -o output.txt
-
+```
+$ asscan.py -i input.txt -o output.txt
+```
 ## 问题
 
 **Q1：** 遇到超时的域名建议多跑几遍或者根据情况延长`timeout`, 默认设置为3.5。
